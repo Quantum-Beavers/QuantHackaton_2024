@@ -16,23 +16,21 @@ startPoint = graph.get('Вокзал')
 nameAllPoints = graph.get('\ufeff')
 
 flag = 0
-# quboMatrix = numpy.array([])
-quboMatrix = []
+quboMatrix = numpy.array([])
 for i in graph:
     if (flag == 0):
         flag = 1
         continue
     normArray = graph.get(i,[])
-    for i in range(0, len(normArray)):
-        if (normArray[i] == "-"):
-            normArray[i] = "-1"
-        normArray[i] = int(normArray[i])
-    # if (flag == 1):
-    #     quboMatrix = numpy.array(normArray)
-    #     flag = 2
-    #     continue
-    # quboMatrix = numpy.concatenate((quboMatrix, numpy.array(normArray)), axis=0)
-    quboMatrix.append(normArray)
+    for j in range(0, len(normArray)):
+        if (normArray[j] == "-"):
+            normArray[j] = "-1"
+        normArray[j] = int(normArray[j])
+    if (flag == 1):
+        quboMatrix = numpy.array(normArray)
+        flag = 2
+        continue
+    quboMatrix = numpy.vstack((quboMatrix, numpy.array(normArray)))
 
 quboMatrixTriu = numpy.triu(quboMatrix)
 
