@@ -1,8 +1,6 @@
 from time import time
 import numpy as np
 from scipy.sparse import coo_matrix
-from scipy.sparse import random
-from scipy import stats
 import pyqiopt as pq
 import csv 
 from math import sqrt
