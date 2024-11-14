@@ -11,6 +11,10 @@ PEOPLE = 10
 with open('task-2-adjacency_matrix.csv') as f:
     graph = {line[0]:line[1:] for line in csv.reader(f)}
 
+with open('task-2-nodes.csv') as f:
+    nodes = {line[0]:line[1:] for line in csv.reader(f)}
+
+print(nodes)
 
 startPoint = graph.get('Вокзал')
 nameAllPoints = graph.get('\ufeff')
