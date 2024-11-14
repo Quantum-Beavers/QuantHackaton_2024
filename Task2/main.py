@@ -47,7 +47,7 @@ start = time()
 print("Non zero elements:", numpy.count_nonzero(quboMatrix))
 
 # print("Numpy matrix example")
-# sol = pq.solve(quboMatrix, number_of_runs=1, number_of_steps=100, return_samples=False, verbose=10)
+# sol = pq.solve(quboMatrixSparse, number_of_runs=1, number_of_steps=100, return_samples=False, verbose=10)
 # print(sol.vector, sol.objective)
 #
 # print("Sparse COO matrix example")
@@ -58,8 +58,8 @@ print("Non zero elements:", numpy.count_nonzero(quboMatrix))
 # sol = pq.solve(quboMatrixSparse, number_of_runs=1, number_of_steps=100, return_samples=True, verbose=10)
 # print(sol.samples)
 
-print("quboMatrix:")
-print(quboMatrix)
+# print("quboMatrix:")
+# print(quboMatrix)
 #
 # print("quboMatrixTriu:")
 # print(quboMatrixTriu)
