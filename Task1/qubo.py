@@ -4,10 +4,42 @@ from scipy.sparse import coo_matrix
 from scipy.sparse import random
 from scipy import stats
 import pyqiopt as pq
+import csv 
+from math import sqrt
 
-with open('ArtTesting/input.txt', 'r') as f:
-    r = list(map(float, f.readline()[:-2].split('\t')))
-    p = list(map(float, f.readline()[:-2].split('\t')))
+with open('task1.csv', newline='') as csvfile:
+    spamreader = csv.reader(csvfile)
+    pi = []
+    title = False
+    for row in spamreader:
+        if title:
+
+            pi.append(list(map(float,row)))
+
+        title = True
+    
+
+n = len(pi) - 1 
+
+p = []
+for i in range(len(pi[0])):
+    s = 0
+    for j in range(1, n):
+        s += (pi[j + 1][i] - pi[j][i])/pi[j][i]
+    s/=n-1
+    
+    p.append(s)
+
+r = []
+for i in range(len(pi[0])):
+    s = 0
+    for j in range(1, n):
+        s += ((pi[j + 1][i] - pi[j][i])/pi[j][i] - p[i])**2
+
+    s=sqrt(s*n/(n-1))
+    
+    r.append(s)
+
 
 row = np.array([])
 column = np.array([])
