@@ -7,7 +7,7 @@ import pyqiopt as pq
 import csv 
 from math import sqrt
 
-with open('task1.csv', newline='') as csvfile:
+with open('./ArtTesting/task1.csv', newline='') as csvfile:
     spamreader = csv.reader(csvfile)
     pi = []
     title = False
@@ -56,37 +56,32 @@ for i in range(100):
             data = np.hstack((data,[q2*r[i]**2 - q2*2*r[i]*R - q1*p[i]]))
         else:
             data = np.hstack((data,[q2*r[i]*r[j]]))
+
 sparse_matrix = coo_matrix((data, (row, column)), shape=(100,100))
 
 arr = sparse_matrix.todense()
-print("Non zero elements:", np.count_nonzero(arr))
 start = time()
-print("Numpy matrix example")
-sol = pq.solve(arr, number_of_runs=1, number_of_steps=51, return_samples=False, verbose=10)
-print(sol.vector, sol.objective)
-arr_sp = coo_matrix(arr) # for pyqiopt input use COO format only
-print("Sparse COO matrix example")
-sol = pq.solve(arr_sp, number_of_runs=1, number_of_steps=100, return_samples=False, verbose=10)
-print(sol.vector, sol.objective)
-sr = 0
-sp = 0
-for i in range(100):
-  if (sol.vector[i]):
-    sr +=r[i]
-    sp+=p[i]
-print(sr,sp)
-print("Sampling example")
 
-sol = pq.solve(arr_sp, seed = 2323,  number_of_runs=1, number_of_steps=100, return_samples=True, verbose=10)
+arr_sp = coo_matrix(arr)
 
-print(sol.vector)
+
+sol = pq.solve(arr_sp, number_of_runs=10, number_of_steps=100, return_samples=False, verbose=10)
+
+print("Портфель акций содержит в себе следующие акции, имеющиее соответственно среднуюю за период доходность и риск:")
+for i in range(len(sol.vector)):
+  if sol.vector[i] == 1:
+    print(f"Акция s{i}, доход {p[i]}, риск {r[i]}")
+
+
 sr = 0
 sp = 0
 
-for i in range(100):
+for i in range(n-1):
   if (sol.vector[i]):
     sr +=r[i]
     sp+=p[i]
-print(sr,sp)
-print(sol.samples)
+    
+    
+print(f"Общие доход и риск равны соответственно: {sp}, {sr} ")
+
 print("Script time:", time()-start)
