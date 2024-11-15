@@ -52,12 +52,13 @@ for i in range(WORDS_COUNT):
 # circuit0 = circuit0.transform_qubits(qubit_map=qubit_map)
 # print(circuit0)
 
-REPETITIONS = 20
+REPETITIONS = 1
 for _ in range(REPETITIONS):
     for i in range(len(data_sentence)):
-        ans = 0
+        ans = 0.5
         for j in range(len(data_sentence[i])):
             ans += float(str(circuit[1].operations[words.index(data_sentence[i][j])].gate).split("Ry(")[1].split("π)")[0])
+        print(ans)
         if data_ans[i] == 1:
             for j in range(len(data_sentence[i])):
                 qubit_map = {circuit[1].operations[words.index(data_sentence[i][j])]: cirq.LineQubit(cirq.ry(
@@ -72,4 +73,4 @@ for _ in range(REPETITIONS):
                         str(circuit[1].operations[words.index(data_sentence[i][j])].gate).split("Ry(")[1].split("π)")[0]
                 ) - 1))}
                 circuit = circuit.transform_qubits(qubit_map=qubit_map)
-print(circuit)
+    print(circuit)
