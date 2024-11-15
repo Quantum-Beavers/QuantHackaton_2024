@@ -1,4 +1,10 @@
-# Импорт библиотек
+# Подготовка к запуску и Quick Start
+
+В директорию, где хранится .py файл, следует сохранить исходный CSV файл с названием 'task1.csv'. Для дальнейших действий обратиться к [Quick Start инструкции](https://github.com/Quantum-Beavers/QuantHackaton_2024/blob/master/Task1/QuickStartGuide.md).
+
+# Сегмент кода
+
+## Импорт библиотек
 
 ```python
 from time import time
@@ -9,7 +15,7 @@ import csv
 from math import sqrt
 ```
 
-# Чтение входных данный из файла
+## Чтение входных данных из файла
 
 ```python
 with open('./ArtTesting/task1.csv', newline='') as csvfile:
@@ -24,8 +30,7 @@ with open('./ArtTesting/task1.csv', newline='') as csvfile:
         title = True
 ```
 
-#
-
+## Вычисление и заполнение матрицы исходных элементов
 ```python
 n = len(pi) - 1 
 
@@ -49,7 +54,7 @@ for i in range(len(pi[0])):
     r.append(s)
 ```
 
-#
+## Инициализация необходимых для конвертации в coo_matrix переменных
 
 ```python
 row = np.array([])
@@ -61,7 +66,7 @@ q2 = 20
 ```
 
 
-#
+## Заполнение матрицы QUBO согласно заранее выработанным формулам
 
 ```python
 for i in range(100):
@@ -74,7 +79,7 @@ for i in range(100):
             data = np.hstack((data,[q2*r[i]*r[j]]))
 ```
 
-#
+## Конвертация в coo_matrix для дальнейшей работы с solve
 
 ```python
 sparse_matrix = coo_matrix((data, (row, column)), shape=(100,100))
@@ -82,13 +87,13 @@ sparse_matrix = coo_matrix((data, (row, column)), shape=(100,100))
 arr = sparse_matrix.todense()
 ```
 
-# Фиксируем время старта решения
+## Фиксируем время старта решения
 
 ```python
 start = time()
 ```
 
-#
+## Запуск и сохранение solve
 
 ```python
 arr_sp = coo_matrix(arr)
@@ -96,7 +101,7 @@ arr_sp = coo_matrix(arr)
 sol = pq.solve(arr_sp, number_of_runs=10, number_of_steps=100, return_samples=False, verbose=10)
 ```
 
-# Вывод купленных акций
+## Вывод купленных акций
 
 ```python
 print("Портфель акций содержит в себе следующие акции, имеющиее соответственно среднуюю за период доходность и риск:")
@@ -105,7 +110,7 @@ for i in range(len(sol.vector)):
     print(f"Акция s{i}, доход {p[i]}, риск {r[i]}")
 ```
 
-# 
+## Заполнение массива доходности и риска для выбранных акций
 
 ```python
 sr = 0
